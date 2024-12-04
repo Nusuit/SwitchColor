@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      american-flag_0: -3625703662601163460
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

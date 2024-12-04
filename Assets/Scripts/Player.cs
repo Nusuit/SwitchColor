@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
 
     protected void Update()
     {
+        // Xử lý nhảy của player
         if (Input.GetButtonDown("Jump") || Input.GetMouseButtonDown(0))
         {
             rb.linearVelocity = Vector2.up * jumpForce;
@@ -37,12 +38,14 @@ public class Player : MonoBehaviour
             }
         }
 
+        // Kiểm tra game over nếu player rơi xuống quá thấp
         if (transform.position.y < fallThreshold)
         {
             Debug.Log("Too Deepppp!!!");
             GameOver();
         }
 
+        // Kiểm tra game over nếu player bay quá cao
         if (transform.position.y > upperThreshold)
         {
             Debug.Log("Reached too high! Resetting scene...");
@@ -52,12 +55,22 @@ public class Player : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.tag == "colorChanger")
+        // Kiểm tra va chạm với color changer để thay đổi màu
+        if (col.CompareTag("colorChanger"))
         {
             setRandomColor();
             Destroy(col.gameObject);
             return;
         }
+
+        // Kiểm tra nếu màu của player không khớp với màu của vật chạm phải
+        if (col.CompareTag("BulletPoint"))
+        {
+            // Cộng điểm khi player chạm vào BulletPoint
+            ScoreManager.Instance.AddPoints(1); // Thêm điểm vào ScoreManager
+        }
+
+        // Nếu màu không khớp thì game over
         if (col.tag != currentColor)
         {
             Debug.Log("GAME OVER!!!");
@@ -94,7 +107,7 @@ public class Player : MonoBehaviour
     // Hàm xử lý game over, trở lại màn chính
     void GameOver()
     {
-        // Chuyển về Main Menu sau khi thua
-        SceneManager.LoadScene("MainMenu");
+        // Hiển thị Game Over và điểm số
+        GameOverManager.Instance.ShowGameOverPanel();
     }
 }

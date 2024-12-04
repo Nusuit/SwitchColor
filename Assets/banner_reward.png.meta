@@ -472,7 +472,21 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      banner_reward_0: -336246178852587394
+      banner_reward_1: 6545305282608864468
+      banner_reward_10: -9172762352965466015
+      banner_reward_11: -6807739870859450172
+      banner_reward_12: -6109669668862351755
+      banner_reward_13: -5776000657878031235
+      banner_reward_2: 5591750814058666338
+      banner_reward_3: 4036384001190775569
+      banner_reward_4: 4756197820365177238
+      banner_reward_5: 604972388315035661
+      banner_reward_6: 5107353978624136173
+      banner_reward_7: -5000838699588171794
+      banner_reward_8: -3872526731501590250
+      banner_reward_9: -6876321926296407624
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
