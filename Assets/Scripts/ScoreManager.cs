@@ -1,83 +1,49 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class ScoreManager : MonoBehaviour
 {
-    public static ScoreManager Instance;  // Singleton instance
+    public static ScoreManager Instance;
 
-    public Text scoreText;  // UI Text để hiển thị điểm số
-    public Text moneyText;  // UI Text để hiển thị tiền
+    public TMP_Text scoreText;  // Hiển thị điểm số
+    public TMP_Text highestScoreText;  // Hiển thị điểm cao nhất
     public int currentScore = 0;
-    public int currentMoney = 0;
-    public int highestScore = 0;  // Điểm số cao nhất
+    public int highestScore = 0;
 
     void Awake()
     {
-        // Đảm bảo chỉ có một instance của ScoreManager
         if (Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(gameObject);  // Giữ ScoreManager khi chuyển scene
         }
         else
         {
-            Destroy(gameObject);
+            Destroy(gameObject);  // Nếu đã có instance, phá hủy đối tượng này
         }
     }
 
-    void Start()
-    {
-        LoadScores();  // Load điểm số và tiền từ PlayerPrefs
-        UpdateUI();
-    }
-
-    // Thêm điểm vào Score và Money
+    // Cập nhật điểm số và UI
     public void AddPoints(int points)
     {
-        currentScore += points;  // Thêm điểm vào Score
-        currentMoney += points / 2;  // Chia điểm cho Money
+        currentScore += points;
 
         if (currentScore > highestScore)
         {
-            highestScore = currentScore;  // Cập nhật điểm cao nhất
+            highestScore = currentScore;
         }
 
-        UpdateUI();
-        SaveScores();  // Lưu lại điểm số và tiền
+        UpdateUI();  // Cập nhật giao diện
     }
 
-    // Cập nhật UI với điểm số và tiền
-    void UpdateUI()
+    // Cập nhật UI với điểm số và điểm cao nhất
+    private void UpdateUI()
     {
-        scoreText.text = "Score: " + currentScore;
-        moneyText.text = "Money: " + currentMoney;
+        if (scoreText != null) scoreText.text = "Score: " + currentScore;
+        if (highestScoreText != null) highestScoreText.text = "Highest Score: " + highestScore;
     }
 
-    // Lưu điểm và tiền vào PlayerPrefs
-    void SaveScores()
-    {
-        PlayerPrefs.SetInt("CurrentScore", currentScore);
-        PlayerPrefs.SetInt("CurrentMoney", currentMoney);
-        PlayerPrefs.SetInt("HighestScore", highestScore);
-        PlayerPrefs.Save();
-    }
-
-    // Tải điểm và tiền từ PlayerPrefs
-    void LoadScores()
-    {
-        currentScore = PlayerPrefs.GetInt("CurrentScore", 0);
-        currentMoney = PlayerPrefs.GetInt("CurrentMoney", 0);
-        highestScore = PlayerPrefs.GetInt("HighestScore", 0);
-    }
-
-    // Lấy điểm số hiện tại
-    public int GetCurrentScore()
-    {
-        return currentScore;
-    }
-
-    // Lấy điểm số cao nhất
-    public int GetHighestScore()
-    {
-        return highestScore;
-    }
+    // Getter methods
+    public int GetCurrentScore() => currentScore;
+    public int GetHighestScore() => highestScore;
 }

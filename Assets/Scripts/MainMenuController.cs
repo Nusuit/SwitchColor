@@ -11,7 +11,8 @@ public class MainMenuController : MonoBehaviour
 
     void Start()
     {
-        if (AudioManager.Instance != null)
+        // Chạy nhạc nền của menu nếu có
+        if (AudioManager.Instance != null && mainMenuMusic != null)
         {
             AudioManager.Instance.PlayBackgroundMusic(mainMenuMusic);
         }
@@ -36,13 +37,5 @@ public class MainMenuController : MonoBehaviour
 
         // Tải màn chơi ngẫu nhiên
         SceneManager.LoadScene(levels[currentLevelIndex]);
-    }
-
-    // Mở menu Settings
-    public void OpenSettings()
-    {
-        Debug.Log("Settings menu opened.");
-        // Chuyển sang màn Settings (tạo scene Settings sau này)
-        SceneManager.LoadScene("Settings");
     }
 }

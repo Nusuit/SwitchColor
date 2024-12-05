@@ -9,6 +9,7 @@ TagManager:
   - pink
   - purple
   - colorChanger
+  - BulletPoint
   layers:
   - Default
   - TransparentFX

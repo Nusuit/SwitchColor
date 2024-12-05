@@ -1,48 +1,50 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameOverManager : MonoBehaviour
 {
-    public static GameOverManager Instance;  // Thêm Instance tĩnh cho GameOverManager
+    public static GameOverManager Instance;
 
-    public GameObject gameOverPanel;   // Panel hiển thị Game Over
-    public Text scoreText;             // Text hiển thị điểm số
-    public Text highestScoreText;      // Text hiển thị highest score
-    public Button restartButton;       // Button để chơi lại
+    public TMP_Text scoreText;           // TMP_Text hiển thị điểm số
+    public TMP_Text highestScoreText;    // TMP_Text hiển thị highest score
+    public GameObject gameOverPanel;     // Panel hiển thị Game Over
+    public GameObject MainMenuButtons;   // Các nút menu trong MainMenu (nếu cần)
 
     void Awake()
     {
-        // Đảm bảo chỉ có một instance của GameOverManager
         if (Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(gameObject);  // Giữ GameOverManager khi chuyển scene
+            Debug.Log("GameOverManager Initialized");
         }
         else
         {
-            Destroy(gameObject);
+            Destroy(gameObject);  // Nếu đã có instance, hủy đi đối tượng này
+            Debug.Log("GameOverManager already exists, destroying duplicate.");
         }
     }
 
-    void Start()
-    {
-        restartButton.onClick.AddListener(RestartGame);
-    }
-
-    // Hiển thị Game Over panel và điểm số
+    // Hiển thị Game Over panel và cập nhật điểm số
     public void ShowGameOverPanel()
     {
-        // Cập nhật điểm và highest score
-        scoreText.text = "Your Score: " + ScoreManager.Instance.GetCurrentScore();
-        highestScoreText.text = "Highest Score: " + ScoreManager.Instance.GetHighestScore();
+        if (ScoreManager.Instance != null)
+        {
+            // Lấy điểm từ ScoreManager
+            int score = ScoreManager.Instance.GetCurrentScore();
+            int highestScore = ScoreManager.Instance.GetHighestScore();
 
-        // Hiển thị Game Over Panel
-        gameOverPanel.SetActive(true);
-    }
+            // Cập nhật thông tin vào các TMP_Text
+            scoreText.text = "Your Score: " + score.ToString();
+            highestScoreText.text = "Highest Score: " + highestScore.ToString();
 
-    private void RestartGame()
-    {
-        // Load lại scene hiện tại
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            // Hiển thị Game Over Panel
+            gameOverPanel.SetActive(true);
+            MainMenuButtons.SetActive(false);  // Ẩn các nút MainMenu khi game over
+        }
+        else
+        {
+            Debug.LogError("ScoreManager instance is missing in the scene!");
+        }
     }
 }
