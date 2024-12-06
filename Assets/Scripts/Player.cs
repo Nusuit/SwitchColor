@@ -2,8 +2,8 @@
 
 public class Player : MonoBehaviour
 {
-    public float jumpForce = 8f;
-    public float fallThreshold = -10f;
+    public float jumpForce = 5f;
+    public float fallThreshold = -6f;
 
     public Rigidbody2D rb;
     public SpriteRenderer sr;
@@ -53,6 +53,18 @@ public class Player : MonoBehaviour
             // Cộng điểm khi player chạm vào BulletPoint
             ScoreManager.Instance.AddPoints(1);  // Thêm điểm vào ScoreManager
             Destroy(col.gameObject);  // Xóa BulletPoint sau khi ăn
+            Debug.Log("Has eaten");
+
+            // Đảm bảo BulletPoint đã bị hủy và tránh tiếp tục xử lý
+            return; // Dừng việc xử lý tại đây sau khi xóa BulletPoint
+        }
+
+        // Kiểm tra va chạm với ColorChanger để đổi màu ngẫu nhiên
+        if (col.CompareTag("colorChanger"))
+        {
+            setRandomColor();  // Đổi màu ngẫu nhiên khi va chạm với ColorChanger
+            Debug.Log("Color changed");
+            return; // Dừng xử lý ở đây nếu va chạm với colorChanger
         }
 
         // Nếu màu không khớp thì game over và bóng sẽ nổ
@@ -62,6 +74,7 @@ public class Player : MonoBehaviour
             GameOver();  // Gọi GameOver khi màu không khớp
         }
     }
+
 
     // Chức năng random màu sắc
     protected void setRandomColor()
@@ -98,7 +111,7 @@ public class Player : MonoBehaviour
     // Hàm xử lý game over
     void GameOver()
     {
-        if (GameOverManager.Instance != null)
+        if (GameOverManager.Instance != null) 
         {
             // Hiển thị GameOverPanel
             GameOverManager.Instance.ShowGameOverPanel();

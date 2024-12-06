@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2652071981408398005}
   - component: {fileID: 7234708461669166372}
   - component: {fileID: 6809772710636271590}
+  - component: {fileID: -4461120821788127677}
   m_Layer: 0
   m_Name: BulletPoint
   m_TagString: BulletPoint
@@ -29,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.0099997, y: 22.97, z: -0}
-  m_LocalScale: {x: 0.12099286, y: 0.12099286, z: 0.12099286}
+  m_LocalScale: {x: 2, y: 2, z: 0.12029929}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -78,8 +79,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.09433961, g: 0.09433961, b: 0.09433961, a: 1}
+  m_Sprite: {fileID: 2217525020098015312, guid: bf99b5c2238cb58498d790910364c887, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -127,7 +128,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 0.46, y: 0.45}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -169,3 +170,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   points: 1
+--- !u!114 &-4461120821788127677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 385727376210933488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5301bfba78cf8274c8008fd952684819, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPointPrefab: {fileID: 385727376210933488}
+  spawnOffsetY: 6
+  spawnInterval: 10
+  spawnRangeX: 8
+  player: {fileID: 0}

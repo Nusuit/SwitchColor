@@ -3,7 +3,7 @@
 public class BulletPointSpawner : MonoBehaviour
 {
     public GameObject bulletPointPrefab;  // Prefab của BulletPoint
-    public float spawnOffsetY = 1f;       // Khoảng cách từ quả bóng tới BulletPoint
+    public float spawnOffsetY = 5f;       // Khoảng cách từ quả bóng tới BulletPoint
     public float spawnInterval = 10f;      // Thời gian giữa mỗi lần spawn
     public float spawnRangeX = 8f;        // Phạm vi trên trục X để spawn BulletPoint
 
