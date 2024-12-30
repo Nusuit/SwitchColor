@@ -17,9 +17,12 @@ public class Player : MonoBehaviour
 
     public GameObject explosionPrefab;  // Prefab của quả bóng nổ khi chạm sai màu
 
+    private GameOverManager gameOverManager;
+
     protected void Start()
     {
         setRandomColor();
+        gameOverManager = FindFirstObjectByType<GameOverManager>();
     }
 
     public float upperThreshold = 100f;
@@ -108,17 +111,37 @@ public class Player : MonoBehaviour
         Instantiate(explosionPrefab, transform.position, Quaternion.identity);
     }
 
-    // Hàm xử lý game over
     void GameOver()
     {
-        if (GameOverManager.Instance != null) 
+        Debug.Log("GameOver called");
+
+        // Vô hiệu hóa physics và input của Player
+        GetComponent<Rigidbody2D>().simulated = false;
+        enabled = false;
+
+        // Ẩn tất cả BulletPoints
+        GameObject[] bulletPoints = GameObject.FindGameObjectsWithTag("BulletPoint");
+        foreach (GameObject bulletPoint in bulletPoints)
         {
-            // Hiển thị GameOverPanel
-            GameOverManager.Instance.ShowGameOverPanel();
+            bulletPoint.SetActive(false);
+        }
+
+        // Hiện GameOverPanel
+        if (gameOverManager != null)
+        {
+            gameOverManager.ShowGameOverPanel();
         }
         else
         {
-            Debug.LogError("GameOverManager.Instance is null! Please check if it's assigned in the scene.");
+            gameOverManager = FindFirstObjectByType<GameOverManager>();
+            if (gameOverManager != null)
+            {
+                gameOverManager.ShowGameOverPanel();
+            }
+            else
+            {
+                Debug.LogError("GameOverManager Instance is null!");
+            }
         }
     }
 }
